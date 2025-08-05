@@ -36,13 +36,32 @@ class _UsersPageState extends State<UsersPage> {
 
     print('-------: ${response.statusCode}');
     print('-------: ${response.body}');
+    if (response.statusCode == 200) {
+      setState(() {
+        users = json.decode(response.body);
+      });
+    } else {
+      print('Error fetching users');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Test')),
-      body: Center(child: Text('Loading...')),
+      body: Center(
+        child: ListView.builder(
+          itemCount: users.length,
+          itemBuilder: (context, index) {
+            final user = users[index];
+            return ListTile(title: Text(user['name']));
+          },
+        ),
+      ),
+      floatingActionButton: ElevatedButton(
+        onPressed: fetchUsers,
+        child: Text('Refresh'),
+      ),
     );
   }
 }

@@ -11,6 +11,7 @@ const users = [
   { id: 2, name: "Luli 123" },
   { id: 3, name: "Luli" },
   { id: 4, name: "Thái Bình Độ" },
+  { id: 5, name: "Thái Bình Độ 123" },
 ];
 
 app.get("/users", (req, res) => {
