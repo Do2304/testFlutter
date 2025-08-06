@@ -4,6 +4,7 @@ import 'dart:convert';
 import './navigation/animateAWidgetAcrossScreens/twoScreens.dart';
 import './navigation/navigateWithNamedRoutes/threeScreens.dart';
 import './navigation/navigateToANewScreenAndBack/twoScreens.dart';
+import './navigation/sendDataToANewScreen/sendDatatoScreenNew.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,16 @@ class MyApp extends StatelessWidget {
       //   '/second': (context) => const SecondScreen(),
       //   '/third': (context) => const thirdScreen(),
       // },
-      home: const FirstRoute(),
+      // home: const FirstRoute(),
+      home: TodosScreen(
+        todos: List.generate(
+          20,
+          (i) => Todo(
+            'Todo $i',
+            'A description of what needs to be done for Todo $i',
+          ),
+        ),
+      ),
     );
   }
 }
