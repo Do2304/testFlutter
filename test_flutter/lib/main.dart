@@ -6,6 +6,7 @@ import './navigation/navigateWithNamedRoutes/threeScreens.dart';
 import './navigation/navigateToANewScreenAndBack/twoScreens.dart';
 import './navigation/sendDataToANewScreen/sendDatatoScreenNew.dart';
 import './navigation/returnData/returnData.dart';
+import './navigation/parseArgNameRoute/partArgNameRoute.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,28 @@ class MyApp extends StatelessWidget {
       //   '/second': (context) => const SecondScreen(),
       //   '/third': (context) => const thirdScreen(),
       // },
-      home: const SelectionButton(),
+      routes: {
+        ExtractArgumentsScreen.routeName: (context) =>
+            const ExtractArgumentsScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == PassArgumentsScreen.routeName) {
+          final args = settings.arguments as ScreenArguments;
+
+          return MaterialPageRoute(
+            builder: (context) {
+              return PassArgumentsScreen(
+                title: args.title,
+                message: args.message,
+              );
+            },
+          );
+        }
+
+        assert(false, 'Need to implement ${settings.name}');
+        return null;
+      },
+      home: const HomeScreen(),
       // home: TodosScreen(
       //   todos: List.generate(
       //     20,
