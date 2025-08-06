@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import './navigation/animateAWidgetAcrossScreens/twoScreens.dart';
 import './navigation/navigateWithNamedRoutes/threeScreens.dart';
+import './navigation/navigateToANewScreenAndBack/twoScreens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,12 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Test Luli',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const FirstScreen(),
-        '/second': (context) => const SecondScreen(),
-        '/third': (context) => const thirdScreen(),
-      },
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const FirstScreen(),
+      //   '/second': (context) => const SecondScreen(),
+      //   '/third': (context) => const thirdScreen(),
+      // },
+      home: const FirstRoute(),
     );
   }
 }
