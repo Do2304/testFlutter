@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import './navigation/animateAWidgetAcrossScreens/twoScreens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Test Luli', home: const UsersPage());
+    return MaterialApp(title: 'Test Luli', home: const MainScreen());
   }
 }
 
