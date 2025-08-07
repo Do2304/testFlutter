@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import './navigation/animateAWidgetAcrossScreens/twoScreens.dart';
 import './navigation/navigateWithNamedRoutes/threeScreens.dart';
@@ -8,9 +9,12 @@ import './navigation/sendDataToANewScreen/sendDatatoScreenNew.dart';
 import './navigation/returnData/returnData.dart';
 import './navigation/parseArgNameRoute/partArgNameRoute.dart';
 import './stateManagement/Ex1_StateFulWidget.dart';
+import './stateManagement/Ex2_ProviderWithChangeNotifier.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (_) => Counter(), child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -46,7 +50,7 @@ class MyApp extends StatelessWidget {
       //   assert(false, 'Need to implement ${settings.name}');
       //   return null;
       // },
-      home: const Ex1Statefulwidget(),
+      home: const Ex2Statefulwidget(),
       // home: TodosScreen(
       //   todos: List.generate(
       //     20,
