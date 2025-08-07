@@ -10,10 +10,11 @@ import './navigation/returnData/returnData.dart';
 import './navigation/parseArgNameRoute/partArgNameRoute.dart';
 import './stateManagement/Ex1_StateFulWidget.dart';
 import './stateManagement/Ex2_ProviderWithChangeNotifier.dart';
+import './stateManagement/Ex3_ProviderWithChangeNotifier.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(create: (_) => Counter(), child: const MyApp()),
+    ChangeNotifierProvider(create: (_) => TodoProvider(), child: const MyApp()),
   );
 }
 
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
       //   assert(false, 'Need to implement ${settings.name}');
       //   return null;
       // },
-      home: const Ex2Statefulwidget(),
+      home: TodoScreen(),
       // home: TodosScreen(
       //   todos: List.generate(
       //     20,
