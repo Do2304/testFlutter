@@ -12,6 +12,8 @@ import './stateManagement/Ex1_StateFulWidget.dart';
 import './stateManagement/Ex2_ProviderWithChangeNotifier.dart';
 import './stateManagement/Ex3_ProviderWithChangeNotifier.dart';
 
+import './usePlugin/Ex1_UrlLauncher.dart';
+
 void main() {
   runApp(
     ChangeNotifierProvider(create: (_) => TodoProvider(), child: const MyApp()),
@@ -51,7 +53,7 @@ class MyApp extends StatelessWidget {
       //   assert(false, 'Need to implement ${settings.name}');
       //   return null;
       // },
-      home: TodoScreen(),
+      home: Ex1_UrlLauncher(),
       // home: TodosScreen(
       //   todos: List.generate(
       //     20,
