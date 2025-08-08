@@ -13,6 +13,7 @@ import './stateManagement/Ex2_ProviderWithChangeNotifier.dart';
 import './stateManagement/Ex3_ProviderWithChangeNotifier.dart';
 
 import './usePlugin/Ex1_UrlLauncher.dart';
+import './usePlugin/Ex2_SMS.dart';
 
 void main() {
   runApp(
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
       //   assert(false, 'Need to implement ${settings.name}');
       //   return null;
       // },
-      home: Ex1_UrlLauncher(),
+      home: Ex2_SMS(),
       // home: TodosScreen(
       //   todos: List.generate(
       //     20,
