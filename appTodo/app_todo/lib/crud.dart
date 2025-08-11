@@ -25,6 +25,7 @@ class UsersPage extends StatefulWidget {
 class _UsersPageState extends State<UsersPage> {
   List<User> users = [];
   final TextEditingController _controllerUser = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -58,7 +59,7 @@ class _UsersPageState extends State<UsersPage> {
     if (result.statusCode == 200) {
       final data = jsonDecode(result.body);
       final created = User.fromJson(data['user']);
-      print("Created: ${created}");
+      // print("Created: ${created}");
       setState(() {
         users.add(created);
       });
@@ -73,6 +74,63 @@ class _UsersPageState extends State<UsersPage> {
       setState(() {
         users.removeWhere((u) => u.id == user.id);
         _showSnack('Deleted success');
+      });
+    }
+  }
+
+  Future<void> editUser(User user) async {
+    _controllerUser.text = user.name;
+    await showDialog(
+      context: context,
+      builder: (_) {
+        Future.delayed(Duration(milliseconds: 100), () {
+          _focusNode.requestFocus();
+        });
+        return AlertDialog(
+          title: Text("Edit user"),
+          content: TextField(
+            controller: _controllerUser,
+            focusNode: _focusNode,
+            decoration: InputDecoration(
+              labelText: "Edit",
+              hintText: "chỉnh sửa",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final name = _controllerUser.text.trim();
+                if (name.isNotEmpty) {
+                  await updatedUser(user, name);
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> updatedUser(User user, String name) async {
+    final url = Uri.parse('http://10.0.2.2:3000/users/${user.id}');
+    final result = await http.put(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'name': name}),
+    );
+    if (result.statusCode == 200) {
+      setState(() {
+        user.name = name;
+        _showSnack('Upadted ${user.name}');
       });
     }
   }
@@ -131,6 +189,10 @@ class _UsersPageState extends State<UsersPage> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  IconButton(
+                    onPressed: () => editUser(user),
+                    icon: Icon(Icons.edit),
+                  ),
                   IconButton(
                     onPressed: () => deleteUser(user),
                     icon: Icon(Icons.delete),

@@ -32,6 +32,16 @@ app.delete("/users/:id", (req, res) => {
   res.json({ status: "success", message: "Deleted sucessFull" });
 });
 
+app.put("/users/:id", (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const user = users.find((u) => u.id === id);
+  if (!user) res.status(404).json({ message: "User not found" });
+  user.name = name;
+  console.log(user);
+  res.json(user);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
