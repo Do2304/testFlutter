@@ -66,6 +66,17 @@ class _UsersPageState extends State<UsersPage> {
     }
   }
 
+  Future<void> deleteUser(User user) async {
+    final url = Uri.parse('http://10.0.2.2:3000/users/${user.id}');
+    final result = await http.delete(url);
+    if (result.statusCode == 200) {
+      setState(() {
+        users.removeWhere((u) => u.id == user.id);
+        _showSnack('Deleted success');
+      });
+    }
+  }
+
   void _showSnack(String s) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(s)));
@@ -115,7 +126,18 @@ class _UsersPageState extends State<UsersPage> {
           itemCount: users.length,
           itemBuilder: (context, index) {
             final user = users[index];
-            return ListTile(title: Text(user.name));
+            return ListTile(
+              title: Text(user.name),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () => deleteUser(user),
+                    icon: Icon(Icons.delete),
+                  ),
+                ],
+              ),
+            );
           },
         ),
       ),

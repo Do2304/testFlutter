@@ -6,7 +6,7 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-const users = [
+let users = [
   { id: "1", name: "Luli Manucians" },
   { id: "2", name: "Thái Bình Độ" },
   { id: "3", name: "Thái Bình Độ 123" },
@@ -22,6 +22,14 @@ app.post("/users", (req, res) => {
   const newUser = { id: Date.now().toString(), name };
   users.push(newUser);
   res.json({ status: "success", user: newUser });
+});
+
+app.delete("/users/:id", (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  users = users.filter((u) => u.id !== id);
+  console.log(users);
+  res.json({ status: "success", message: "Deleted sucessFull" });
 });
 
 app.listen(port, () => {
